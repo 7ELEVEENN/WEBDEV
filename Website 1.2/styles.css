@@ -1,7 +1,28 @@
+:root {
+    --sun-size: 80px;
+    --scale-factor: 1;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --scale-factor: 0.6;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --scale-factor: 0.4;
+    }
+}
+
 body {
     margin: 0;
     overflow: hidden;
     background: #000;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .solar-system {
@@ -11,32 +32,52 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: scale(var(--scale-factor));
 }
 
 .sun {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: var(--sun-size);
+    height: var(--sun-size);
     background: radial-gradient(#ffd700, #ff8c00);
     border-radius: 50%;
-    box-shadow: 0 0 50px #ff8c00;
+    box-shadow: 0 0 60px #ff8c00;
+    animation: pulsate 4s ease-in-out infinite;
 }
 
 .orbit {
     position: absolute;
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
 }
 
 .planet {
     position: absolute;
     border-radius: 50%;
-    transform-origin: 50% 50%;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    margin-top: calc(var(--size) / -2);
+    margin-left: calc(var(--size) / -2);
 }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+.planet-label {
+    position: absolute;
+    color: white;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    white-space: nowrap;
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.planet:hover .planet-label {
+    opacity: 1;
 }
 
 .stars {
@@ -46,4 +87,118 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 1s infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg) translateX(var(--orbit-radius)) rotate(0deg); }
+    to { transform: rotate(360deg) translateX(var(--orbit-radius)) rotate(-360deg); }
+}
+
+@keyframes tilt {
+    0% { transform: rotateX(75deg) rotateY(0deg); }
+    100% { transform: rotateX(75deg) rotateY(360deg); }
+}
+
+@keyframes pulsate {
+    0% { transform: scale(1); box-shadow: 0 0 60px #ff8c00; }
+    50% { transform: scale(1.05); box-shadow: 0 0 80px #ff8c00; }
+    100% { transform: scale(1); box-shadow: 0 0 60px #ff8c00; }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+/* Add these new styles */
+.info-card {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    color: white;
+    display: none;
+    max-width: 300px;
+    z-index: 1000;
+}
+
+.controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.controls button {
+    padding: 5px 15px;
+    border: 1px solid white;
+    background: transparent;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.controls button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.saturn-rings {
+    position: absolute;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.asteroid-belt {
+    position: absolute;
+    border-radius: 50%;
+    transform-style: preserve-3d;
+}
+
+.asteroid {
+    position: absolute;
+    background: #8B8B8B;
+    border-radius: 50%;
+}
+
+.moon {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #D3D3D3;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    animation: moonOrbit 2.7s linear infinite;
+}
+
+@keyframes moonOrbit {
+    from { transform: rotate(0deg) translateX(20px); }
+    to { transform: rotate(360deg) translateX(20px); }
+}
+
+@keyframes orbit {
+    from {
+        transform: rotate(var(--start-angle)) translateX(var(--orbit-radius)) rotate(calc(var(--start-angle) * -1));
+    }
+    to {
+        transform: rotate(calc(var(--start-angle) + 360deg)) translateX(var(--orbit-radius)) rotate(calc((var(--start-angle) + 360deg) * -1));
+    }
 } 

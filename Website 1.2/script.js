@@ -108,13 +108,6 @@ const asteroidBelt = {
 function createPlanets() {
     const solarSystem = document.querySelector('.solar-system');
     
-    // Add Sun label
-    const sun = document.querySelector('.sun');
-    const sunLabel = document.createElement('div');
-    sunLabel.className = 'sun-label';
-    sunLabel.textContent = 'Sun';
-    sun.appendChild(sunLabel);
-    
     planets.forEach((planet) => {
         const orbit = document.createElement('div');
         orbit.className = 'orbit';
@@ -132,14 +125,14 @@ function createPlanets() {
         planetDiv.style.setProperty('--orbit-radius', `${planet.distance}px`);
         planetDiv.style.setProperty('--start-angle', `${Math.random() * 360}deg`);
 
-        // Add persistent planet label
+        // Add planet label
         const label = document.createElement('div');
         label.className = 'planet-label';
         label.textContent = planet.name;
         planetDiv.appendChild(label);
 
         // Set animation
-        const baseSpeed = 10;
+        const baseSpeed = 10; // Earth's orbital period in seconds
         const duration = baseSpeed * planet.period;
         planetDiv.style.animation = `orbit ${duration}s linear infinite`;
 
@@ -168,13 +161,6 @@ function createPlanets() {
             moonDiv.style.setProperty('--start-angle', `${Math.random() * 360}deg`);
             moonDiv.style.animation = `orbit ${moon.period * baseSpeed}s linear infinite`;
             
-            // Add moon label
-            const moonLabel = document.createElement('div');
-            moonLabel.className = 'planet-label';
-            moonLabel.textContent = 'Moon';
-            moonLabel.style.fontSize = 'calc(10px / var(--scale-factor))';
-            moonDiv.appendChild(moonLabel);
-            
             moonOrbit.appendChild(moonDiv);
             planetDiv.appendChild(moonOrbit);
         }
@@ -184,23 +170,12 @@ function createPlanets() {
     });
 
     createAsteroidBelt();
-    updateScale();
 }
 
 function createAsteroidBelt() {
     const solarSystem = document.querySelector('.solar-system');
     const belt = document.createElement('div');
     belt.className = 'asteroid-belt';
-
-    // Add asteroid belt label
-    const beltLabel = document.createElement('div');
-    beltLabel.className = 'asteroid-belt-label';
-    beltLabel.textContent = 'Asteroid Belt';
-    beltLabel.style.position = 'absolute';
-    beltLabel.style.left = '50%';
-    beltLabel.style.top = '50%';
-    beltLabel.style.transform = 'translate(-50%, -50%)';
-    belt.appendChild(beltLabel);
 
     for (let i = 0; i < asteroidBelt.numAsteroids; i++) {
         const distance = asteroidBelt.minRadius + Math.random() * (asteroidBelt.maxRadius - asteroidBelt.minRadius);
@@ -209,9 +184,11 @@ function createAsteroidBelt() {
         asteroid.style.width = `${Math.random() * 2 + 1}px`;
         asteroid.style.height = asteroid.style.width;
         
+        // Set CSS variables for the asteroid
         asteroid.style.setProperty('--orbit-radius', `${distance}px`);
         asteroid.style.setProperty('--start-angle', `${Math.random() * 360}deg`);
         
+        // Random orbital period between 20 and 30 seconds
         asteroid.style.animation = `orbit ${20 + Math.random() * 10}s linear infinite`;
         
         belt.appendChild(asteroid);
@@ -237,14 +214,16 @@ function showPlanetInfo(planet) {
     `;
 
     infoCard.style.display = 'block';
-    positionInfoCard(event, infoCard);
+    
+    // Position card near cursor
     document.addEventListener('mousemove', moveInfoCard);
 }
 
 function moveInfoCard(e) {
     const infoCard = document.querySelector('.info-card');
     if (infoCard) {
-        positionInfoCard(e, infoCard);
+        infoCard.style.left = `${e.clientX + 20}px`;
+        infoCard.style.top = `${e.clientY + 20}px`;
     }
 }
 
@@ -267,31 +246,12 @@ function adjustSpeed(factor) {
     });
 }
 
-// Add this function to handle responsive scaling
-function updateScale() {
-    const container = document.querySelector('.solar-system');
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    
-    // Calculate the minimum scale that fits both width and height
-    const scaleWidth = windowWidth / 1200;
-    const scaleHeight = windowHeight / 1200;
-    const scale = Math.min(scaleWidth, scaleHeight, 1) * 0.9; // 0.9 to add some margin
-    
-    document.documentElement.style.setProperty('--scale-factor', scale);
-}
-
-// Add these event listeners
-window.addEventListener('load', updateScale);
-window.addEventListener('resize', updateScale);
-
-// Modify your initialization code
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     createStars();
     setTimeout(() => {
         createPlanets();
         createControls();
-        updateScale(); // Initial scale update
     }, 500);
 });
 
@@ -320,20 +280,11 @@ function getPlanetInfo(planet) {
     return info[planet.name];
 }
 
-// Add this helper function to handle responsive info cards
-function positionInfoCard(e, infoCard) {
-    const rect = infoCard.getBoundingClientRect();
-    let x = e.clientX + 20;
-    let y = e.clientY + 20;
-
-    // Adjust position if it would overflow the viewport
-    if (x + rect.width > window.innerWidth) {
-        x = window.innerWidth - rect.width - 20;
-    }
-    if (y + rect.height > window.innerHeight) {
-        y = window.innerHeight - rect.height - 20;
-    }
-
-    infoCard.style.left = `${x}px`;
-    infoCard.style.top = `${y}px`;
-} 
+// Add resize handler for responsiveness
+window.addEventListener('resize', () => {
+    const scale = Math.min(
+        window.innerWidth / 1200,
+        window.innerHeight / 800
+    );
+    document.documentElement.style.setProperty('--scale-factor', scale);
+}); 

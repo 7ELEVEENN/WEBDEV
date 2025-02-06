@@ -4,120 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solar System Animation</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background: #000;
-        }
-
-        .solar-system {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .sun {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(#ffd700, #ff8c00);
-            border-radius: 50%;
-            box-shadow: 0 0 50px #ff8c00;
-        }
-
-        .orbit {
-            position: absolute;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            animation: rotate linear infinite;
-        }
-
-        .planet {
-            position: absolute;
-            border-radius: 50%;
-            transform-origin: 50% 50%;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="stars"></div>
     <div class="solar-system">
         <div class="sun"></div>
     </div>
-
-    <script>
-        // Create stars background
-        function createStars() {
-            const stars = document.querySelector('.stars');
-            for (let i = 0; i < 200; i++) {
-                const star = document.createElement('div');
-                star.style.position = 'absolute';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = '2px';
-                star.style.height = '2px';
-                star.style.background = 'white';
-                star.style.borderRadius = '50%';
-                stars.appendChild(star);
-            }
-        }
-
-        // Create planets
-        const planets = [
-            { name: 'Mercury', size: 20, distance: 120, color: '#A0522D', speed: 4.1 },
-            { name: 'Venus', size: 25, distance: 160, color: '#DEB887', speed: 1.6 },
-            { name: 'Earth', size: 30, distance: 200, color: '#4169E1', speed: 1 },
-            { name: 'Mars', size: 22, distance: 240, color: '#CD5C5C', speed: 0.5 },
-            { name: 'Jupiter', size: 60, distance: 320, color: '#DAA520', speed: 0.08 },
-            { name: 'Saturn', size: 50, distance: 400, color: '#F4A460', speed: 0.03 },
-            { name: 'Uranus', size: 35, distance: 460, color: '#87CEEB', speed: 0.01 },
-            { name: 'Neptune', size: 35, distance: 520, color: '#1E90FF', speed: 0.006 },
-            { name: 'Pluto', size: 15, distance: 580, color: '#A0522D', speed: 0.004 }
-        ];
-
-        function createPlanets() {
-            const solarSystem = document.querySelector('.solar-system');
-            
-            planets.forEach(planet => {
-                const orbit = document.createElement('div');
-                orbit.className = 'orbit';
-                orbit.style.width = planet.distance * 2 + 'px';
-                orbit.style.height = planet.distance * 2 + 'px';
-
-                const planetDiv = document.createElement('div');
-                planetDiv.className = 'planet';
-                planetDiv.style.width = planet.size + 'px';
-                planetDiv.style.height = planet.size + 'px';
-                planetDiv.style.background = planet.color;
-                planetDiv.style.left = planet.distance + 'px';
-                planetDiv.style.animation = `rotate ${30 / planet.speed}s linear infinite`;
-
-                orbit.appendChild(planetDiv);
-                solarSystem.appendChild(orbit);
-            });
-        }
-
-        // Initialize
-        createStars();
-        createPlanets();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

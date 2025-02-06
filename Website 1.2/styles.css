@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.solar-system {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sun {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(#ffd700, #ff8c00);
+    border-radius: 50%;
+    box-shadow: 0 0 50px #ff8c00;
+}
+
+.orbit {
+    position: absolute;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+}
+
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    transform-origin: 50% 50%;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+} 

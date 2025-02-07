@@ -19,44 +19,40 @@ changeColorBtn.addEventListener('click', () => {
     changeColorBtn.style.backgroundColor = randomColor;
 });
 
-// ChatGPT API Implementation
-const OPENAI_API_KEY = 'your-api-key-here'; // Replace with your actual API key
-
-async function getChatGPTResponse(prompt) {
+// Dictionary API Implementation
+async function getWordDefinition(word) {
     try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${OPENAI_API_KEY}`
-            },
-            body: JSON.stringify({
-                model: "gpt-3.5-turbo",
-                messages: [{
-                    role: "user",
-                    content: prompt
-                }],
-                temperature: 0.7
-            })
-        });
+        const response = await fetch(
+            `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`
+        );
+
+        if (!response.ok) {
+            throw new Error('Word not found or invalid input');
+        }
 
         const data = await response.json();
-        return data.choices[0].message.content;
+        
+        // Format the response
+        const definition = data[0].meanings.map(meaning => {
+            return `${meaning.partOfSpeech}:\n${meaning.definitions[0].definition}`;
+        }).join('\n\n');
+
+        return definition;
     } catch (error) {
-        console.error('Error:', error);
-        return 'An error occurred while fetching the response.';
+        console.error('Error details:', error);
+        return `Error: ${error.message}`;
     }
 }
 
 // Handle form submission
 submitQuestion.addEventListener('click', async () => {
-    const question = userInput.value.trim();
-    if (!question) return;
+    const word = userInput.value.trim();
+    if (!word) return;
 
     responseArea.textContent = 'Loading...';
     submitQuestion.disabled = true;
 
-    const answer = await getChatGPTResponse(question);
+    const answer = await getWordDefinition(word);
     responseArea.textContent = answer;
     submitQuestion.disabled = false;
 });

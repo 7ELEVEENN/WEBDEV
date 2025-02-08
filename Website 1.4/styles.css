@@ -90,6 +90,11 @@ button:hover {
     background: #444;
 }
 
+button:disabled {
+    background: #999;
+    cursor: not-allowed;
+}
+
 .form-footer {
     margin-top: 20px;
     display: flex;

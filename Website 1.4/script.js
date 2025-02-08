@@ -30,8 +30,60 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add your login logic here
     });
 
-    signupForm.addEventListener('submit', (e) => {
+    signupForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        // Add your signup logic here
+        
+        const firstName = document.getElementById('firstname').value;
+        const lastName = document.getElementById('lastname').value;
+        const username = document.getElementById('signup-username').value;
+        const email = document.getElementById('signup-email').value;
+        const password = document.getElementById('signup-password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        const address = document.getElementById('address').value;
+        const age = document.getElementById('age').value;
+        const gender = document.getElementById('gender').value;
+
+        // Basic validation
+        if (password !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    firstName,
+                    lastName,
+                    username,
+                    email,
+                    password,
+                    address,
+                    age,
+                    gender
+                })
+            });
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                alert('Registration successful!');
+                signupForm.classList.add('hidden');
+                signupForm.classList.remove('visible');
+                loginForm.classList.remove('hidden');
+                setTimeout(() => {
+                    loginForm.classList.add('visible');
+                }, 10);
+                signupForm.reset();
+            } else {
+                alert('Registration failed: ' + data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred during registration');
+        }
     });
 });

@@ -12,14 +12,13 @@ body {
 
 .navbar {
     background-color: #000000;
-    padding: 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 85px;
+    height: 40px;
     padding: 0 32px;
+    padding-top: 16px;
     font-size: 14px;
-    border-bottom: 1px solid #30363d;
 }
 
 .nav-left {
@@ -71,27 +70,6 @@ body {
     gap: 16px;
 }
 
-.nav-links {
-    display: flex;
-    gap: 16px;
-    height: 100%;
-    align-items: center;
-}
-
-.nav-links a {
-    color: #c9d1d9;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.nav-links a:hover {
-    color: #7d8590;
-}
-
 .nav-icons {
     display: flex;
     align-items: center;
@@ -119,20 +97,7 @@ body {
 }
 
 .profile-nav {
-    margin-top: 20px;
-    border-bottom: 1px solid #30363d;
-    display: flex;
-    gap: 16px;
-    padding-bottom: 16px;
-}
-
-.profile-nav a {
-    color: #c9d1d9;
-    text-decoration: none;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    display: none;
 }
 
 .badge {
@@ -150,6 +115,7 @@ body {
     display: grid;
     grid-template-columns: 296px 1fr;
     gap: 24px;
+    padding-top: 0;
 }
 
 .profile-section {
@@ -241,4 +207,44 @@ body {
 
 .social-btn:hover {
     background-color: #30363d;
+}
+
+.sub-nav {
+    background-color: #000000;
+    border-bottom: 1px solid #30363d;
+    padding: 0 32px;
+}
+
+.sub-nav-links {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
+    gap: 8px;
+    height: 48px;
+    align-items: center;
+}
+
+.sub-nav-links a {
+    color: #c9d1d9;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 8px 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    border-bottom: 2px solid transparent;
+}
+
+.sub-nav-links a:hover {
+    border-bottom: 2px solid #7d8590;
+}
+
+.sub-nav-links a.active {
+    border-bottom: 2px solid #f78166;
+    font-weight: 600;
+}
+
+.sub-nav-links i {
+    font-size: 16px;
 } 

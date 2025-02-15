@@ -10,20 +10,41 @@
 <body>
     <nav class="navbar">
         <div class="nav-left">
-            <i class="fab fa-github" style="font-size: 32px; color: white;"></i>
-            <input type="text" class="search-box" placeholder="Type / to search">
-            <ul class="nav-menu">
-                <li><a href="#">Pull requests</a></li>
-                <li><a href="#">Issues</a></li>
-                <li><a href="#">Codespaces</a></li>
-                <li><a href="#">Marketplace</a></li>
-                <li><a href="#">Explore</a></li>
-            </ul>
+            <button class="hamburger-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="#" class="github-logo">
+                <i class="fab fa-github"></i>
+            </a>
+            <div class="nav-menu">
+                <input type="text" class="search-box" placeholder="Type / to search">
+            </div>
         </div>
         <div class="nav-right">
-            <i class="far fa-bell nav-icon"></i>
-            <i class="fas fa-plus nav-icon"></i>
-            <img src="me.jpg" alt="Profile" style="width: 20px; height: 20px; border-radius: 50%;">
+            <div class="nav-links">
+                <a href="#">Pull requests</a>
+                <a href="#">Issues</a>
+                <a href="#">Codespaces</a>
+                <a href="#">Marketplace</a>
+                <a href="#">Explore</a>
+            </div>
+            <div class="nav-icons">
+                <a href="#" class="nav-icon">
+                    <i class="far fa-bell"></i>
+                </a>
+                <div class="nav-icon-dropdown">
+                    <a href="#" class="nav-icon">
+                        <i class="fas fa-plus"></i>
+                        <i class="fas fa-caret-down" style="font-size: 10px;"></i>
+                    </a>
+                </div>
+                <div class="nav-icon-dropdown">
+                    <a href="#" class="nav-icon">
+                        <img src="me.jpg" alt="Profile" class="nav-avatar">
+                        <i class="fas fa-caret-down" style="font-size: 10px;"></i>
+                    </a>
+                </div>
+            </div>
         </div>
     </nav>
 

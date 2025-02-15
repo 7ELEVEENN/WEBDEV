@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(#ff9ecd, #ffd1dc);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid #e74c3c;
+            transform-origin: top;
+            transition: transform 0.5s ease;
+        }
+
+        .envelope.open::before {
+            transform: rotateX(180deg);
+        }
+
+        .letter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 280px;
+            height: 180px;
+            background: white;
+            border-radius: 3px;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .letter.visible {
+            opacity: 1;
+        }
+
+        .message {
+            font-size: 24px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        .flowers {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #87CEEB;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .flower::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #87CEEB;
+            border-radius: 50%;
+            transform: rotate(45deg);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        .click-prompt {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            width: 100%;
+        }
+
+        @media (max-width: 480px) {
+            .envelope {
+                width: 250px;
+                height: 166px;
+            }
+
+            .envelope::before {
+                border-left: 125px solid transparent;
+                border-right: 125px solid transparent;
+                border-top: 83px solid #e74c3c;
+            }
+
+            .letter {
+                width: 230px;
+                height: 150px;
+            }
+
+            .message {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope">
+        <div class="letter">
+            <div class="message">Will you be my Valentine?</div>
+        </div>
+        <div class="click-prompt">Click to open the envelope</div>
+    </div>
+    <div class="flowers"></div>
+
+    <script>
+        const envelope = document.querySelector('.envelope');
+        const letter = document.querySelector('.letter');
+        const flowers = document.querySelector('.flowers');
+        const clickPrompt = document.querySelector('.click-prompt');
+
+        envelope.addEventListener('click', () => {
+            envelope.classList.add('open');
+            letter.classList.add('visible');
+            clickPrompt.style.display = 'none';
+            createFlowers();
+        });
+
+        function createFlowers() {
+            flowers.style.display = 'block';
+            for (let i = 0; i < 20; i++) {
+                createFlower();
+            }
+        }
+
+        function createFlower() {
+            const flower = document.createElement('div');
+            flower.className = 'flower';
+            
+            // Random position
+            flower.style.left = Math.random() * 100 + 'vw';
+            flower.style.top = Math.random() * 100 + 'vh';
+            
+            // Random size
+            const size = 20 + Math.random() * 20;
+            flower.style.width = size + 'px';
+            flower.style.height = size + 'px';
+            
+            // Random animation delay
+            flower.style.animationDelay = Math.random() * 5 + 's';
+            
+            flowers.appendChild(flower);
+            
+            // Remove flower after animation
+            setTimeout(() => {
+                flower.remove();
+                createFlower();
+            }, 6000);
+        }
+    </script>
+</body>
+</html>

@@ -40,7 +40,8 @@
 }
 
 .carousel-slide {
-    transition: opacity 0.5s ease-in-out;
+    transition: opacity 500ms ease-in-out;
+    will-change: opacity;
 }
 
 /* Custom styles for minimalist design */
@@ -57,8 +58,10 @@
     @apply absolute top-1/2 transform -translate-y-1/2 
            bg-white dark:bg-gray-800 bg-opacity-50 dark:bg-opacity-50
            hover:bg-opacity-75 dark:hover:bg-opacity-75 
-           p-2 rounded-full cursor-pointer transition-all duration-300
-           text-gray-800 dark:text-white;
+           p-3 rounded-full cursor-pointer transition-all duration-300
+           text-gray-800 dark:text-white
+           hover:scale-110;
+    z-index: 20;
 }
 
 .carousel-prev {

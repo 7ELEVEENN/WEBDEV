@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Smooth theme transitions */
+:root {
+    --transition-duration: 300ms;
+}
+
+* {
+    transition: background-color var(--transition-duration) ease-in-out,
+                border-color var(--transition-duration) ease-in-out,
+                color var(--transition-duration) ease-in-out;
+}
+
 /* Custom animations */
 @keyframes fadeIn {
     from {
@@ -25,17 +36,29 @@
 
 /* Custom classes */
 .animate-fade-in {
-    animation: fadeIn 1s ease-out forwards;
+    animation: fadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .carousel-slide {
     transition: opacity 0.5s ease-in-out;
 }
 
+/* Custom styles for minimalist design */
+.glass-effect {
+    @apply backdrop-blur-md bg-white/80 dark:bg-gray-900/80;
+}
+
+.gradient-text {
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+}
+
 /* Custom styles for carousel controls */
 .carousel-control {
-    @apply absolute top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 
-           hover:bg-opacity-75 p-2 rounded-full cursor-pointer transition-all duration-300;
+    @apply absolute top-1/2 transform -translate-y-1/2 
+           bg-white dark:bg-gray-800 bg-opacity-50 dark:bg-opacity-50
+           hover:bg-opacity-75 dark:hover:bg-opacity-75 
+           p-2 rounded-full cursor-pointer transition-all duration-300
+           text-gray-800 dark:text-white;
 }
 
 .carousel-prev {
@@ -44,6 +67,11 @@
 
 .carousel-next {
     @apply right-4;
+}
+
+/* Refined animations */
+.hover-lift {
+    @apply transform transition-transform duration-300 hover:-translate-y-1;
 }
 
 /* Custom styles can be added here */ 

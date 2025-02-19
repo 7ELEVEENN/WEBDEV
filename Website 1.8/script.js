@@ -86,4 +86,35 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.animate-on-scroll').forEach((element) => {
         observer.observe(element);
     });
-}); 
+
+    initTheme();
+});
+
+// Listen for system theme changes
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+        document.documentElement.classList.toggle('dark', e.matches);
+    }
+});
+
+// Theme toggle functionality
+function initTheme() {
+    const html = document.documentElement;
+    const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-mobile');
+    
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemDark)) {
+        html.classList.add('dark');
+    }
+
+    // Theme toggle event listeners
+    themeToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+    });
+} 

@@ -2,4 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Custom classes */
+.animate-fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.carousel-slide {
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Custom styles for carousel controls */
+.carousel-control {
+    @apply absolute top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 
+           hover:bg-opacity-75 p-2 rounded-full cursor-pointer transition-all duration-300;
+}
+
+.carousel-prev {
+    @apply left-4;
+}
+
+.carousel-next {
+    @apply right-4;
+}
+
 /* Custom styles can be added here */ 

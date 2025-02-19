@@ -38,105 +38,10 @@ function initTheme() {
     });
 }
 
-// Carousel functionality
-class Carousel {
-    constructor(element) {
-        this.carousel = element;
-        this.slides = Array.from(element.querySelectorAll('.carousel-slide'));
-        this.currentSlide = 0;
-        this.totalSlides = this.slides.length;
-        this.autoPlayInterval = null;
-        this.isTransitioning = false;
-
-        this.initCarousel();
-    }
-
-    initCarousel() {
-        if (this.slides.length === 0) return;
-
-        // Show first slide
-        this.showSlide(0);
-        
-        // Add event listeners for controls
-        const nextButton = this.carousel.querySelector('.carousel-next');
-        const prevButton = this.carousel.querySelector('.carousel-prev');
-        
-        if (nextButton) {
-            nextButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.nextSlide();
-            });
-        }
-        
-        if (prevButton) {
-            prevButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.prevSlide();
-            });
-        }
-        
-        // Start autoplay
-        this.startAutoPlay();
-
-        // Pause autoplay on hover
-        this.carousel.addEventListener('mouseenter', () => this.stopAutoPlay());
-        this.carousel.addEventListener('mouseleave', () => this.startAutoPlay());
-    }
-
-    showSlide(index) {
-        if (this.isTransitioning) return;
-        this.isTransitioning = true;
-
-        // Hide all slides
-        this.slides.forEach(slide => {
-            slide.classList.remove('opacity-100');
-            slide.classList.add('opacity-0');
-        });
-        
-        // Show selected slide
-        setTimeout(() => {
-            this.slides[index].classList.remove('opacity-0');
-            this.slides[index].classList.add('opacity-100');
-            this.currentSlide = index;
-            this.isTransitioning = false;
-        }, 500); // Match this with CSS transition duration
-    }
-
-    nextSlide() {
-        if (this.isTransitioning) return;
-        const next = (this.currentSlide + 1) % this.totalSlides;
-        this.showSlide(next);
-    }
-
-    prevSlide() {
-        if (this.isTransitioning) return;
-        const prev = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-        this.showSlide(prev);
-    }
-
-    startAutoPlay() {
-        if (this.autoPlayInterval) this.stopAutoPlay();
-        this.autoPlayInterval = setInterval(() => this.nextSlide(), 5000);
-    }
-
-    stopAutoPlay() {
-        if (this.autoPlayInterval) {
-            clearInterval(this.autoPlayInterval);
-            this.autoPlayInterval = null;
-        }
-    }
-}
-
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize theme first
+    // Initialize theme
     initTheme();
-
-    // Initialize carousel
-    const carouselElement = document.querySelector('.carousel');
-    if (carouselElement) {
-        new Carousel(carouselElement);
-    }
 
     // Initialize animations
     const observer = new IntersectionObserver((entries) => {

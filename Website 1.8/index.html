@@ -55,52 +55,32 @@
         </div>
     </nav>
 
-    <!-- Hero Section with Carousel -->
-    <section id="home" class="pt-16 bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
-        <div class="carousel relative w-full h-[600px]">
-            <!-- Carousel Slides -->
-            <div class="carousel-slide absolute w-full h-full opacity-0 transition-opacity duration-500">
-                <img src="https://source.unsplash.com/random/1920x1080?website" alt="Slide 1" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div class="text-center text-white animate-on-scroll">
-                        <h1 class="text-5xl font-bold mb-4">Welcome to Our Website</h1>
-                        <p class="text-xl mb-8">Create stunning websites with modern technologies</p>
-                        <a href="#features" class="bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full transition-colors">
-                            Get Started
-                        </a>
-                    </div>
-                </div>
+    <!-- Hero Section with Geometric Background -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+        <!-- Geometric Background -->
+        <div class="geometric-background absolute inset-0 z-0"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <div class="animate-on-scroll">
+                <h1 class="text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Modern Web Design
+                </h1>
+                <p class="text-xl mb-8 text-gray-600 dark:text-gray-300">
+                    Create stunning websites with modern technologies and minimalist design principles
+                </p>
+                <a href="#features" class="inline-block bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full transition-colors transform hover:scale-105 duration-300">
+                    Explore Features
+                </a>
             </div>
-            <div class="carousel-slide absolute w-full h-full opacity-0 transition-opacity duration-500">
-                <img src="https://source.unsplash.com/random/1920x1080?technology" alt="Slide 2" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div class="text-center text-white">
-                        <h1 class="text-5xl font-bold mb-4">Modern Technology Stack</h1>
-                        <p class="text-xl mb-8">Built with Tailwind CSS and JavaScript</p>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-slide absolute w-full h-full opacity-0 transition-opacity duration-500">
-                <img src="https://source.unsplash.com/random/1920x1080?design" alt="Slide 3" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div class="text-center text-white">
-                        <h1 class="text-5xl font-bold mb-4">Beautiful Design</h1>
-                        <p class="text-xl mb-8">Responsive and modern web design</p>
-                    </div>
-                </div>
-            </div>
+        </div>
 
-            <!-- Carousel Controls -->
-            <button class="carousel-control carousel-prev">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                </svg>
-            </button>
-            <button class="carousel-control carousel-next">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-            </button>
+        <!-- Floating Geometric Shapes -->
+        <div class="geometric-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
         </div>
     </section>
 

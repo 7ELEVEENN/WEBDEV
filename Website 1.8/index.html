@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modern Landing Page</title>
-    <!-- Tailwind CSS CDN -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Custom Tailwind Configuration -->
     <script>
@@ -19,6 +19,8 @@
             }
         }
     </script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="bg-gray-50">
     <!-- Navigation Bar -->
@@ -92,25 +94,7 @@
         </div>
     </section>
 
-    <!-- JavaScript -->
-    <script>
-        // Mobile menu toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>

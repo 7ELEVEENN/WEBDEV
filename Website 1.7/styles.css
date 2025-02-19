@@ -124,7 +124,7 @@ body {
     display: grid;
     grid-template-columns: 296px 1fr;
     gap: 24px;
-    padding-top: 0;
+    padding-top: 32px;
 }
 
 .profile-section {

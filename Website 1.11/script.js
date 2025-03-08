@@ -96,12 +96,26 @@ class MemoryCalendar {
         };
 
         if (this.memoryImage.files[0]) {
+            const file = this.memoryImage.files[0];
+            // Check file size (limit to 5MB)
+            if (file.size > 5 * 1024 * 1024) {
+                alert('Image size should be less than 5MB');
+                return;
+            }
+
             const reader = new FileReader();
             reader.onload = (e) => {
-                memory.image = e.target.result;
-                this.finalizeMemorySave(memory);
+                // Create an image element to get dimensions
+                const img = new Image();
+                img.onload = () => {
+                    memory.image = e.target.result;
+                    memory.imageWidth = img.width;
+                    memory.imageHeight = img.height;
+                    this.finalizeMemorySave(memory);
+                };
+                img.src = e.target.result;
             };
-            reader.readAsDataURL(this.memoryImage.files[0]);
+            reader.readAsDataURL(file);
         } else {
             this.finalizeMemorySave(memory);
         }
@@ -125,11 +139,23 @@ class MemoryCalendar {
             memoryCard.classList.add('memory-card');
 
             const timestamp = new Date(memory.timestamp).toLocaleString();
+            
+            let imageHtml = '';
+            if (memory.image) {
+                imageHtml = `
+                    <div class="memory-image-container">
+                        <img src="${memory.image}" 
+                             class="memory-image" 
+                             alt="Memory image"
+                             loading="lazy">
+                    </div>`;
+            }
+
             memoryCard.innerHTML = `
                 <p>${memory.text}</p>
                 <small>${timestamp}</small>
-                ${memory.image ? `<img src="${memory.image}" class="memory-image">` : ''}
-                <button onclick="calendar.deleteMemory(${index})">Delete</button>
+                ${imageHtml}
+                <button onclick="calendar.deleteMemory(${index})">Delete Memory</button>
             `;
 
             this.savedMemoriesContainer.appendChild(memoryCard);
